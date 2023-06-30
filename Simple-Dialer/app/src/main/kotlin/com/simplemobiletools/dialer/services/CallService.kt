@@ -2,15 +2,14 @@ package com.simplemobiletools.dialer.services
 
 import android.app.KeyguardManager
 import android.content.Context
+import android.media.MediaRouter.RouteGroup
 import android.os.Build
 import android.os.Handler
 import android.os.PowerManager
-import android.speech.tts.TextToSpeech
 import android.telecom.Call
 import android.telecom.Call.Details.DIRECTION_INCOMING
 import android.telecom.CallAudioState
 import android.telecom.InCallService
-import androidx.annotation.RequiresApi
 import com.simplemobiletools.dialer.activities.CallActivity
 import com.simplemobiletools.dialer.extensions.config
 import com.simplemobiletools.dialer.extensions.isOutgoing
