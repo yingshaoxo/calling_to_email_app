@@ -16,7 +16,12 @@ class tts_service(context: Context) {
     }
 
     fun play_network_audio(): Boolean {
-        var result = GoFind.GoFind.post_to_the_network("192.168.49.1/24", 1919, 1919, "/play_post", "{}", 3000)
+        var result = GoFind.GoFind.post_to_the_host("192.168.49.70", 1919, 1919, "/play_post", "{}", 3000)
+
+        result += GoFind.GoFind.post_to_the_host("192.168.49.32", 1919, 1919, "/play_post", "{}", 3000)
+
+        result += GoFind.GoFind.post_to_the_network("192.168.49.70/24", 1919, 1919, "/play_post", "{}", 3000)
+
         if (result.contains("ok")) {
             return true
         } else {

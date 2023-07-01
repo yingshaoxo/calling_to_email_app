@@ -10,6 +10,7 @@ import android.telecom.Call.Details.DIRECTION_INCOMING
 import android.telecom.CallAudioState
 import android.telecom.InCallService
 import androidx.annotation.RequiresApi
+import com.simplemobiletools.dialer.Global_Variable
 import com.simplemobiletools.dialer.activities.CallActivity
 import com.simplemobiletools.dialer.helpers.CallManager
 import com.simplemobiletools.dialer.helpers.NoCall
@@ -22,12 +23,13 @@ class CallService : InCallService() {
         }
     }
 
+    var my_tts_service: tts_service? = null
+
     fun is_screen_on(): Boolean {
         val powerManager = getSystemService(POWER_SERVICE) as PowerManager
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) powerManager.isInteractive else powerManager.isScreenOn
     }
 
-    var my_tts_service: tts_service? = null
     fun action_after_call_acception() {
         my_tts_service = tts_service(this.applicationContext)
         var result = my_tts_service?.play_network_audio()
@@ -38,6 +40,9 @@ class CallService : InCallService() {
 
     override fun onCallAdded(call: Call) {
         super.onCallAdded(call)
+
+        Global_Variable.current_call = call
+
         CallManager.onCallAdded(call)
         CallManager.inCallService = this
         call.registerCallback(callListener)
@@ -85,6 +90,7 @@ class CallService : InCallService() {
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCallRemoved(call: Call) {
         super.onCallRemoved(call)
+
         call.unregisterCallback(callListener)
         val wasPrimaryCall = call == CallManager.getPrimaryCall()
         CallManager.onCallRemoved(call)
