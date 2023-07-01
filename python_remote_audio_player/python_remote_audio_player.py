@@ -12,7 +12,7 @@ def run_it():
 
     def handle_url(sub_url: str) -> str:
         if (sub_url.endswith("play_post")):
-            if ("yingshaoxo_gmail.mp3" not in terminal.run_command("ps x")):
+            if ("mp3" not in terminal.run_command("ps x")):
                 terminal.run(f"ffplay {audio_path} -autoexit -nodisp", wait=False)
             return "ok"
 

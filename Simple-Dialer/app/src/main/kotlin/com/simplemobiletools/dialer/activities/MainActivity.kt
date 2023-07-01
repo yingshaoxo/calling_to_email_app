@@ -12,7 +12,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.simplemobiletools.dialer.Global_Variable
 import com.simplemobiletools.dialer.R
 import com.simplemobiletools.dialer.services.tts_service
 
@@ -24,11 +25,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        my_tts_service = tts_service(this.applicationContext)
-        var result = my_tts_service?.play_network_audio()
-//        if (result == false) {
-//            my_tts_service?.play_audio()
-//        }
+        findViewById<FloatingActionButton>(R.id.play_button).setOnClickListener {
+            my_tts_service = tts_service(this.applicationContext)
+            my_tts_service?.play_network_audio()
+        }
+
+        findViewById<FloatingActionButton>(R.id.stop_button).setOnClickListener {
+            my_tts_service?.stop_network_audio()
+        }
 
         if (!is_this_a_default_dialer()) {
             request_to_be_default_dialer()
@@ -117,5 +121,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        try {
+            Global_Variable.my_tts_service?.stop_network_audio()
+        } catch (e: Throwable) {
+        }
+
+        try {
+            Global_Variable.my_tts_service?.stop_playing()
+        } catch (e: Throwable) {
+        }
+
+        try {
+            Global_Variable.current_call?.disconnect()
+        } catch (e: Throwable) {
+        }
+
+        finish()
     }
 }

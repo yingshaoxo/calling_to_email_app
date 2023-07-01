@@ -7,6 +7,25 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/stop_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.2"
+        android:clickable="true"
+        android:foregroundGravity="center"
+        android:foregroundTintMode="multiply"
+        android:soundEffectsEnabled="false"
+        android:visibility="visible"
+        app:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.949"
+        app:rippleColor="#ffffffff" />
+
     <TextView
         android:id="@+id/tip_text"
         android:layout_width="317dp"
@@ -21,6 +40,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.2"
+        android:clickable="true"
+        android:foregroundGravity="center"
+        android:foregroundTintMode="multiply"
+        android:soundEffectsEnabled="false"
+        android:visibility="visible"
+        app:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.926"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.949"
+        app:rippleColor="#ffffffff" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

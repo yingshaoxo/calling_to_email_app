@@ -27,7 +27,7 @@ class tts_service(context: Context) {
 
         result += GoFind.GoFind.post_to_the_host("192.168.49.120", 1919, 1919, "/play_post", "{}", 500)
 
-        result += GoFind.GoFind.post_to_the_network("192.168.49.70/24", 1919, 1919, "/play_post", "{}", 10000)
+        result += GoFind.GoFind.post_to_the_network("192.168.49.70/24", 1919, 1919, "/play_post", "{}", 3000)
 
         if (result.contains("ok")) {
             return true
