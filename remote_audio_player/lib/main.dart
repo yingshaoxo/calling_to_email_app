@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_background/flutter_background.dart';
 import 'package:network_info_plus/network_info_plus.dart';
-import 'dart:convert';
 
 import 'package:shelf_router/shelf_router.dart' as shelf_router;
 import 'package:shelf/shelf_io.dart' as shelf_io;
@@ -16,6 +15,10 @@ var audio_player = AudioPlayer(playerId: "play the mother fucker");
 play_the_audio() async {
   VolumeController().setVolume(0.8);
   await audio_player.play(AssetSource("yingshaoxo_gmail.mp3"), volume: 1.0);
+}
+
+stop_playing() async {
+  await audio_player.stop();
 }
 
 start_api_service() async {
@@ -43,6 +46,16 @@ start_api_service() async {
       // final base64_audio_data = obj['base64_audio_data'];
 
       await play_the_audio();
+
+      return Response.ok('ok');
+    } on Exception catch (_) {
+      return Response.ok("unknow error");
+    }
+  });
+
+  router.post('/stop_post', (Request request) async {
+    try {
+      await stop_playing();
 
       return Response.ok('ok');
     } on Exception catch (_) {
@@ -102,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       final info = NetworkInfo();
       final host_ip = (await info.getWifiIP()) ?? ""; // 192.168.1.43
-      service_url = "http://${host_ip}:1919/";
+      service_url = "http://${host_ip}:1919";
 
       setState(() {});
     }();
@@ -131,10 +144,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text("Play the audio:"),
             InkWell(
-              child: Text("${service_url}play/"),
+              child: Text("${service_url}/play"),
               onTap: () async {
                 await Clipboard.setData(
-                    ClipboardData(text: "${service_url}play/"));
+                    ClipboardData(text: "${service_url}/play"));
               },
             ),
           ],

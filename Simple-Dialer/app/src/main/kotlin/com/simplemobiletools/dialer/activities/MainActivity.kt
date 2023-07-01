@@ -24,11 +24,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        my_tts_service = tts_service(this.applicationContext)
-//        var result = my_tts_service?.play_network_audio()
-//        if (result == false) {
-//            my_tts_service?.play_audio()
-//        }
+        my_tts_service = tts_service(this.applicationContext)
+        var result = my_tts_service?.play_network_audio()
+        if (result == false) {
+            my_tts_service?.play_audio()
+        }
 
         if (!is_this_a_default_dialer()) {
             request_to_be_default_dialer()

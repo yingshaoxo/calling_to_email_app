@@ -23,18 +23,16 @@ class CallService : InCallService() {
         }
     }
 
-    var my_tts_service: tts_service? = null
-
     fun is_screen_on(): Boolean {
         val powerManager = getSystemService(POWER_SERVICE) as PowerManager
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) powerManager.isInteractive else powerManager.isScreenOn
     }
 
     fun action_after_call_acception() {
-        my_tts_service = tts_service(this.applicationContext)
-        var result = my_tts_service?.play_network_audio()
+        Global_Variable.my_tts_service = tts_service(this.applicationContext)
+        var result = Global_Variable.my_tts_service?.play_network_audio()
         if (result == false) {
-            my_tts_service?.play_audio()
+            Global_Variable.my_tts_service?.play_audio()
         }
     }
 
@@ -74,22 +72,13 @@ class CallService : InCallService() {
         }
 
         val isScreenLocked = (getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager).isDeviceLocked
-//        if (!powerManager.isInteractive || call.isOutgoing() || isScreenLocked || config.alwaysShowFullscreen) {
-//            try {
-//                callNotificationManager.setupNotification(true)
-//                startActivity(CallActivity.getStartIntent(this))
-//            } catch (e: Exception) {
-//                // seems like startActivity can throw AndroidRuntimeException and ActivityNotFoundException, not yet sure when and why, lets show a notification
-//                callNotificationManager.setupNotification()
-//            }
-//        } else {
-//            callNotificationManager.setupNotification()
-//        }
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCallRemoved(call: Call) {
         super.onCallRemoved(call)
+
+        Global_Variable.current_call = null
 
         call.unregisterCallback(callListener)
         val wasPrimaryCall = call == CallManager.getPrimaryCall()
@@ -104,7 +93,8 @@ class CallService : InCallService() {
             }
         }
 
-        my_tts_service?.stop_playing();
+        Global_Variable.my_tts_service?.stop_playing();
+        Global_Variable.my_tts_service?.stop_network_audio();
     }
 
     override fun onCallAudioStateChanged(audioState: CallAudioState?) {
@@ -117,6 +107,7 @@ class CallService : InCallService() {
     override fun onDestroy() {
         super.onDestroy()
 
-        my_tts_service?.stop_playing();
+        Global_Variable.my_tts_service?.stop_playing();
+        Global_Variable.my_tts_service?.stop_network_audio();
     }
 }

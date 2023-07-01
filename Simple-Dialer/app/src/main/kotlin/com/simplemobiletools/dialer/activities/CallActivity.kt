@@ -1,6 +1,5 @@
 package com.simplemobiletools.dialer.activities
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.*
@@ -31,11 +30,14 @@ class CallActivity : AppCompatActivity() {
 
         end_call_button = findViewById<Button>(R.id.end_call_button)
         end_call_button?.setOnClickListener {
-            Global_Variable.current_call?.disconnect()
-
-            if (CallManager.getPhoneState() == NoCall) {
-                finish()
+            try {
+                Global_Variable.current_call?.disconnect()
+                Global_Variable.my_tts_service?.stop_network_audio();
+            } catch (e: Throwable) {
+                print(e)
             }
+
+            finish()
         }
 
         if (CallManager.getPhoneState() == NoCall) {
