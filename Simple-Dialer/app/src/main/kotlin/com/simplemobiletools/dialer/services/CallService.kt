@@ -30,10 +30,7 @@ class CallService : InCallService() {
 
     fun action_after_call_acception() {
         Global_Variable.my_tts_service = tts_service(this.applicationContext)
-        var result = Global_Variable.my_tts_service?.play_network_audio()
-        if (result == false) {
-            Global_Variable.my_tts_service?.play_audio()
-        }
+        Global_Variable.my_tts_service?.play()
     }
 
     override fun onCallAdded(call: Call) {
@@ -93,8 +90,7 @@ class CallService : InCallService() {
             }
         }
 
-        Global_Variable.my_tts_service?.stop_playing();
-        Global_Variable.my_tts_service?.stop_network_audio();
+        Global_Variable.my_tts_service?.stop()
     }
 
     override fun onCallAudioStateChanged(audioState: CallAudioState?) {
@@ -107,7 +103,6 @@ class CallService : InCallService() {
     override fun onDestroy() {
         super.onDestroy()
 
-        Global_Variable.my_tts_service?.stop_playing();
-        Global_Variable.my_tts_service?.stop_network_audio();
+        Global_Variable.my_tts_service?.stop()
     }
 }

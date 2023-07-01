@@ -26,12 +26,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<FloatingActionButton>(R.id.play_button).setOnClickListener {
-            my_tts_service = tts_service(this.applicationContext)
-            my_tts_service?.play_network_audio()
+            Global_Variable.my_tts_service = tts_service(this.applicationContext)
+            Global_Variable.my_tts_service?.play()
         }
 
         findViewById<FloatingActionButton>(R.id.stop_button).setOnClickListener {
-            my_tts_service?.stop_network_audio()
+            Global_Variable.my_tts_service?.stop()
         }
 
         if (!is_this_a_default_dialer()) {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.os.Handler
 import android.util.Log
+import com.simplemobiletools.dialer.Global_Variable
 import com.simplemobiletools.dialer.R
 
 class tts_service(context: Context) {
@@ -73,6 +74,31 @@ class tts_service(context: Context) {
         try {
             mediaPlayer?.stop();
         } catch (e: Error) {
+            print(e)
+        }
+    }
+
+    fun play() {
+        try {
+            var result = play_network_audio()
+            if (result == false) {
+                play_audio()
+            }
+        } catch (e: Throwable) {
+            print(e)
+        }
+    }
+
+    fun stop() {
+        try {
+            stop_playing()
+        } catch (e: Throwable) {
+            print(e)
+        }
+
+        try {
+            stop_network_audio()
+        } catch (e: Throwable) {
             print(e)
         }
     }
