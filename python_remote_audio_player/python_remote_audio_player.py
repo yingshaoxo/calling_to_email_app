@@ -12,7 +12,8 @@ def run_it():
 
     def handle_url(sub_url: str) -> str:
         if (sub_url.endswith("play_post")):
-            terminal.run(f"ffplay {audio_path} -autoexit -nodisp", wait=False)
+            if ("yingshaoxo_gmail.mp3" not in terminal.run_command("ps x")):
+                terminal.run(f"ffplay {audio_path} -autoexit -nodisp", wait=False)
             return "ok"
 
         if (sub_url.endswith("stop_post")):
@@ -21,7 +22,8 @@ def run_it():
             except Exception as e:
                 print(e)
             return "ok"
-        return ""
+
+        return "version 1.0"
     
 
     class WebRequestHandler(http.server.BaseHTTPRequestHandler):
