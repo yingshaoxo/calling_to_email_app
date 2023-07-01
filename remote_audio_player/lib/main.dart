@@ -10,7 +10,7 @@ import 'package:shelf/shelf.dart';
 import 'package:volume_controller/volume_controller.dart';
 
 var router = shelf_router.Router();
-var audio_player = AudioPlayer(playerId: "play the mother fucker");
+final audio_player = AudioPlayer(); // Create a player
 
 play_the_audio() async {
   VolumeController().setVolume(0.8);
